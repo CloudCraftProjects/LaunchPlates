@@ -6,6 +6,7 @@ import dev.booky.launchplates.util.LaunchPlateConfig.LaunchPlate;
 import dev.jorel.commandapi.CommandAPI;
 import dev.jorel.commandapi.CommandAPIBukkit;
 import dev.jorel.commandapi.CommandTree;
+import dev.jorel.commandapi.arguments.FloatArgument;
 import dev.jorel.commandapi.arguments.LiteralArgument;
 import dev.jorel.commandapi.arguments.LocationArgument;
 import dev.jorel.commandapi.arguments.LocationType;
@@ -28,6 +29,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
 import java.time.Duration;
+import java.util.Objects;
 import java.util.Set;
 
 public final class LaunchPlateCommand {
@@ -74,6 +76,14 @@ public final class LaunchPlateCommand {
                         .then(new LocationArgument("block", LocationType.BLOCK_POSITION).setOptional(true)
                                 .then(new WorldArgument("dimension").setOptional(true)
                                         .executesNative(this::deletePlate))))
+                .then(new LiteralArgument("boost")
+                        .withPermission("launchplates.command.boost")
+                        .then(new FloatArgument("velocityX", -3.8f, 3.8f)
+                                .then(new FloatArgument("velocityY", -3.8f, 3.8f)
+                                        .then(new FloatArgument("velocityZ", -3.8f, 3.8f)
+                                                .then(new LocationArgument("block", LocationType.BLOCK_POSITION).setOptional(true)
+                                                        .then(new WorldArgument("dimension").setOptional(true)
+                                                                .executesNative(this::setPlateBoost)))))))
                 .then(new LiteralArgument("reload")
                         .withPermission("launchplates.command.reload-config")
                         .executesNative(this::reloadConfig))
@@ -162,6 +172,33 @@ public final class LaunchPlateCommand {
 
         this.manager.updateConfig(config -> config.getPlates().remove(plate));
         this.success(sender, Component.translatable("launchplates.command.delete.success"));
+    }
+
+    private void setPlateBoost(NativeProxyCommandSender sender, CommandArguments args) throws WrapperCommandSyntaxException {
+        Vector pos = args.getOrDefaultUnchecked("block", sender::getLocation).toVector();
+        World world = args.getOrDefaultUnchecked("dimension", sender::getWorld);
+        Block block = world.getBlockAt(pos.getBlockX(), pos.getBlockY(), pos.getBlockZ());
+
+        LaunchPlate plate = this.manager.getLaunchPlate(block);
+        if (plate == null) {
+            throw this.fail(Component.translatable("launchplates.command.boost.not-found"));
+        }
+
+
+        double velocityX = Objects.requireNonNull(args.<Float>getUnchecked("velocityX"));
+        double velocityY = Objects.requireNonNull(args.<Float>getUnchecked("velocityY"));
+        double velocityZ = Objects.requireNonNull(args.<Float>getUnchecked("velocityZ"));
+        velocityX = Math.round(velocityX * 100d) / 100d;
+        velocityY = Math.round(velocityY * 100d) / 100d;
+        velocityZ = Math.round(velocityZ * 100d) / 100d;
+
+        plate.getLaunchVelocity().setX(velocityX);
+        plate.getLaunchVelocity().setY(velocityY);
+        plate.getLaunchVelocity().setZ(velocityZ);
+        this.manager.saveConfig();
+
+        this.success(sender, Component.translatable("launchplates.command.boost.success",
+                Component.text(velocityX + ":" + velocityY + ":" + velocityZ, NamedTextColor.WHITE)));
     }
 
     private void reloadConfig(NativeProxyCommandSender sender, CommandArguments args) {
