@@ -31,7 +31,7 @@ public class LaunchPlatesMain extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new ProtectionListener(this.manager), this);
         Bukkit.getPluginManager().registerEvents(new LaunchListener(this.manager), this);
 
-        LaunchPlateCommand.register(this.manager);
+        LaunchPlateCommand.create(this.manager);
 
         Bukkit.getServicesManager().register(LaunchPlateManager.class, this.manager, this, ServicePriority.Normal);
     }
