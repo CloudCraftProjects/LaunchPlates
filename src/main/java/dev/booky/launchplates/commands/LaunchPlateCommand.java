@@ -145,8 +145,8 @@ public final class LaunchPlateCommand {
     }
 
     private void createPlate(NativeProxyCommandSender sender, CommandArguments args) throws WrapperCommandSyntaxException {
-        Vector pos = args.getOrDefaultUnchecked("block", sender::getLocation).toVector();
-        World world = args.getOrDefaultUnchecked("dimension", sender::getWorld);
+        Vector pos = args.<Location>getOptionalUnchecked("block").orElseGet(sender::getLocation).toVector();
+        World world = args.<World>getOptionalUnchecked("dimension").orElseGet(sender::getWorld);
         Block block = world.getBlockAt(pos.getBlockX(), pos.getBlockY(), pos.getBlockZ());
 
         if (this.manager.getLaunchPlate(block) != null) {
@@ -161,8 +161,8 @@ public final class LaunchPlateCommand {
     }
 
     private void deletePlate(NativeProxyCommandSender sender, CommandArguments args) throws WrapperCommandSyntaxException {
-        Vector pos = args.getOrDefaultUnchecked("block", sender::getLocation).toVector();
-        World world = args.getOrDefaultUnchecked("dimension", sender::getWorld);
+        Vector pos = args.<Location>getOptionalUnchecked("block").orElseGet(sender::getLocation).toVector();
+        World world = args.<World>getOptionalUnchecked("dimension").orElseGet(sender::getWorld);
         Block block = world.getBlockAt(pos.getBlockX(), pos.getBlockY(), pos.getBlockZ());
 
         LaunchPlate plate = this.manager.getLaunchPlate(block);
@@ -175,8 +175,8 @@ public final class LaunchPlateCommand {
     }
 
     private void setPlateBoost(NativeProxyCommandSender sender, CommandArguments args) throws WrapperCommandSyntaxException {
-        Vector pos = args.getOrDefaultUnchecked("block", sender::getLocation).toVector();
-        World world = args.getOrDefaultUnchecked("dimension", sender::getWorld);
+        Vector pos = args.<Location>getOptionalUnchecked("block").orElseGet(sender::getLocation).toVector();
+        World world = args.<World>getOptionalUnchecked("dimension").orElseGet(sender::getWorld);
         Block block = world.getBlockAt(pos.getBlockX(), pos.getBlockY(), pos.getBlockZ());
 
         LaunchPlate plate = this.manager.getLaunchPlate(block);
