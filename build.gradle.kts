@@ -35,7 +35,6 @@ dependencies {
 
     // testserver dependency plugins
     plugin(variantOf(libs.cloudcore) { classifier("all") })
-    plugin(libs.commandapi.bukkit.plugin)
 }
 
 java {
@@ -64,7 +63,16 @@ bukkit {
 tasks {
     runServer {
         minecraftVersion("1.20.2")
+
         pluginJars.from(plugin.resolve())
+        downloadPlugins {
+            hangar("CommandAPI", libs.versions.commandapi.get())
+            github(
+                "PaperMC", "Debuggery",
+                "v${libs.versions.debuggery.get()}",
+                "debuggery-bukkit-${libs.versions.debuggery.get()}.jar"
+            )
+        }
     }
 
     shadowJar {
