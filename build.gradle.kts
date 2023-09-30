@@ -2,9 +2,9 @@ plugins {
     id("java-library")
     id("maven-publish")
 
-    id("net.minecrell.plugin-yml.bukkit") version "0.5.3"
-    id("xyz.jpenilla.run-paper") version "1.0.6"
-    id("com.github.johnrengelman.shadow") version "7.1.2"
+    alias(libs.plugins.pluginyml.bukkit)
+    alias(libs.plugins.run.paper)
+    alias(libs.plugins.shadow)
 }
 
 group = "dev.booky"
@@ -25,24 +25,25 @@ repositories {
     maven("https://repo.papermc.io/repository/maven-public/")
 }
 
-val cloudCoreVersion = "1.0.0"
-
 dependencies {
-    compileOnly("io.papermc.paper:paper-api:1.19.4-R0.1-SNAPSHOT")
+    compileOnly(libs.paper.api)
 
-    implementation("org.bstats:bstats-bukkit:3.0.2")
+    implementation(libs.bstats.bukkit)
 
     // needs to be published to maven local manually
-    compileOnlyApi("dev.booky:cloudcore:$cloudCoreVersion")
+    compileOnlyApi(libs.cloudcore)
 
     // testserver dependency plugins
-    plugin("dev.booky:cloudcore:$cloudCoreVersion:all")
-    plugin("dev.jorel:commandapi-bukkit-plugin:9.0.2")
+    plugin(variantOf(libs.cloudcore) { classifier("all") })
+    plugin(libs.commandapi.bukkit.plugin)
 }
 
 java {
     withSourcesJar()
-    toolchain.languageVersion.set(JavaLanguageVersion.of(17))
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(17))
+        vendor.set(JvmVendorSpec.ADOPTIUM)
+    }
 }
 
 publishing {
@@ -67,7 +68,7 @@ tasks {
     }
 
     shadowJar {
-        relocate("org.bstats", "dev.booky.launchplates.bstats")
+        relocate("org.bstats", "${project.group}.launchplates.bstats")
     }
 
     assemble {

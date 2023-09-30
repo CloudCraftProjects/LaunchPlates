@@ -1,0 +1,22 @@
+[versions]
+pluginyml = "0.5.3"
+runtask = "1.0.6"
+shadow = "7.1.2"
+
+paper = "1.19.4-R0.1-SNAPSHOT"
+bstats = "3.0.2"
+
+cloudcore = "1.0.0"
+commandapi = "9.0.2"
+
+[plugins]
+pluginyml-bukkit = { id = "net.minecrell.plugin-yml.bukkit", version.ref = "pluginyml" }
+run-paper = { id = "xyz.jpenilla.run-paper", version.ref = "runtask" }
+shadow = { id = "com.github.johnrengelman.shadow", version.ref = "shadow" }
+
+[libraries]
+paper-api = { module = "io.papermc.paper:paper-api", version.ref = "paper" }
+bstats-bukkit = { module = "org.bstats:bstats-bukkit", version.ref = "bstats" }
+
+cloudcore = { module = "dev.booky:cloudcore", version.ref = "cloudcore" }
+commandapi-bukkit-plugin = { module = "dev.jorel:commandapi-bukkit-plugin", version.ref = "commandapi" }
