@@ -1,13 +1,13 @@
 [versions]
-pluginyml = "0.5.3"
+pluginyml = "0.6.0"
 runtask = "1.0.6"
 shadow = "7.1.2"
 
-paper = "1.19.4-R0.1-SNAPSHOT"
+paper = "1.20.2-R0.1-SNAPSHOT"
 bstats = "3.0.2"
 
 cloudcore = "1.0.0"
-commandapi = "9.0.2"
+commandapi = "9.2.0"
 
 [plugins]
 pluginyml-bukkit = { id = "net.minecrell.plugin-yml.bukkit", version.ref = "pluginyml" }

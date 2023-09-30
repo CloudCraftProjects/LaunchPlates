@@ -55,7 +55,7 @@ publishing {
 
 bukkit {
     main = "$group.launchplates.LaunchPlatesMain"
-    apiVersion = "1.19"
+    apiVersion = "1.20"
     authors = listOf("booky10")
     depend = listOf("CloudCore")
     load = net.minecrell.pluginyml.bukkit.BukkitPluginDescription.PluginLoadOrder.POSTWORLD
@@ -63,7 +63,7 @@ bukkit {
 
 tasks {
     runServer {
-        minecraftVersion("1.20")
+        minecraftVersion("1.20.2")
         pluginJars.from(plugin.resolve())
     }
 
