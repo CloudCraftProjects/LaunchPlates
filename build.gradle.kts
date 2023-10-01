@@ -8,20 +8,17 @@ plugins {
 }
 
 group = "dev.booky"
-version = "1.0.0"
+version = "1.0.1-SNAPSHOT"
 
 val plugin: Configuration by configurations.creating {
     isTransitive = false
 }
 
 repositories {
-    // TODO: find an actual repository for this
-    mavenLocal {
-        content {
-            includeGroup("dev.booky")
-        }
+    maven("https://maven.pkg.github.com/CloudCraftProjects/*/") {
+        name = "github"
+        credentials(PasswordCredentials::class.java)
     }
-
     maven("https://repo.papermc.io/repository/maven-public/")
 }
 
@@ -49,6 +46,10 @@ publishing {
     publications.create<MavenPublication>("maven") {
         artifactId = project.name.lowercase()
         from(components["java"])
+    }
+    repositories.maven("https://maven.pkg.github.com/CloudCraftProjects/LaunchPlates") {
+        name = "github"
+        credentials(PasswordCredentials::class.java)
     }
 }
 
