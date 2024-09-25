@@ -5,7 +5,7 @@ for how to use this plugin.
 
 ## Download
 
-https://nightly.link/CloudCraftProjects/LaunchPlates/workflows/build/master/LaunchPlates-Artifacts.zip
+https://dl.cloudcraftmc.de/download/tool/launchplates
 
 **Note: Depends on [CommandAPI](https://commandapi.jorel.dev/)
 and [CloudCore](https://github.com/CloudCraftProjects/CloudCore/).**
