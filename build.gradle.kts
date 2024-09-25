@@ -34,8 +34,8 @@ dependencies {
 java {
     withSourcesJar()
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(21))
-        vendor.set(JvmVendorSpec.ADOPTIUM)
+        languageVersion = JavaLanguageVersion.of(21)
+        vendor = JvmVendorSpec.ADOPTIUM
     }
 }
 
@@ -60,7 +60,7 @@ bukkit {
 
 tasks {
     runServer {
-        minecraftVersion("1.20.2")
+        minecraftVersion("1.21.1")
 
         pluginJars.from(plugin.resolve())
         downloadPlugins {
