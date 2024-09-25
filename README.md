@@ -14,15 +14,11 @@ and [CloudCore](https://github.com/CloudCraftProjects/CloudCore/).**
 
 ### Dependency
 
-Requires `githubUsername` and `githubPassword` (classic GitHub token with package registry access) to be set
-in `~/.gradle/gradle.properties`. Then add the following to your `build.gradle.kts`:
+Add the following to your `build.gradle.kts`:
 
 ```kotlin
 repositories {
-    maven("https://maven.pkg.github.com/CloudCraftProjects/*/") {
-        name = "github"
-        credentials(PasswordCredentials::class.java)
-    }
+    maven("https://repo.cloudcraftmc.de/releases/")
 }
 
 dependencies {
