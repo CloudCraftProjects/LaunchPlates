@@ -6,7 +6,7 @@ shadow = "8.1.1"
 paper = "1.20.2-R0.1-SNAPSHOT"
 bstats = "3.0.2"
 
-cloudcore = "1.0.2-SNAPSHOT"
+cloudcore = "1.1.0-SNAPSHOT"
 
 commandapi = "9.2.0"
 debuggery = "1.5.1"
