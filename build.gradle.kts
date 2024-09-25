@@ -23,17 +23,18 @@ dependencies {
 
     implementation(libs.bstats.bukkit)
 
-    // needs to be published to maven local manually
     compileOnlyApi(libs.cloudcore)
+    compileOnly(libs.commandapi.bukkit.core)
 
     // testserver dependency plugins
     plugin(variantOf(libs.cloudcore) { classifier("all") })
+    plugin(libs.commandapi.bukkit.plugin)
 }
 
 java {
     withSourcesJar()
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(17))
+        languageVersion.set(JavaLanguageVersion.of(21))
         vendor.set(JvmVendorSpec.ADOPTIUM)
     }
 }
@@ -53,7 +54,7 @@ bukkit {
     main = "$group.launchplates.LaunchPlatesMain"
     apiVersion = "1.20"
     authors = listOf("booky10")
-    depend = listOf("CloudCore")
+    depend = listOf("CloudCore", "CommandAPI")
     load = net.minecrell.pluginyml.bukkit.BukkitPluginDescription.PluginLoadOrder.POSTWORLD
 }
 
