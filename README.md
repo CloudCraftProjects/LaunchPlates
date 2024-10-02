@@ -5,12 +5,23 @@ for how to use this plugin.
 
 ## Download
 
-https://dl.cloudcraftmc.de/download/tool/launchplates
+https://dl.cloudcraftmc.de/launchplates
 
-**Note: Depends on [CommandAPI](https://commandapi.jorel.dev/)
-and [CloudCore](https://github.com/CloudCraftProjects/CloudCore/).**
+> [!NOTE]
+> Depends
+> on [CommandAPI](https://modrinth.com/project/commandapi) and
+> [CloudCore](https://modrinth.com/project/cloudcore).
 
-## Using this as an API
+## Usage
+
+- Use `/launchplate list` to list all plates
+- Use `/launchplate create <x> <y> <z> [<dimension>]` to create a plate
+- Use `/launchplate delete <x> <y> <z> [<dimension>]` to delete a plate
+- Use `/launchplate boost <dx> <dy> <dz> <x> <y> <z> [<dimension>]` to change the boost of a specific plate
+- Use `/launchplate reload` to reload all plates from the configuration file
+
+<details>
+<summary><strong>Using this as API</strong></summary>
 
 ### Dependency
 
@@ -34,6 +45,8 @@ You can get the `LaunchPlateManager` instance using bukkit's `LaunchPlateManager
 This can be used to modify, create or delete launch plates.
 
 To modify launch effects, listen for the `LaunchPlateUseEvent`.
+
+</details>
 
 ## License
 
