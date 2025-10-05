@@ -35,4 +35,4 @@ jobs:
           if-no-files-found: error
 
       - name: Publish to package registry
-        run: ./gradlew publish --no-daemon -PhorreoUsername=${{ secrets.PUBLISH_USERNAME }} -PhorreoPassword=${{ secrets.PUBLISH_PASSWORD }}
+        run: ./gradlew publish --no-daemon -PminceraftUsername=${{ secrets.PUBLISH_USERNAME }} -PminceraftPassword=${{ secrets.PUBLISH_PASSWORD }}

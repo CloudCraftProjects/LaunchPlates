@@ -1,7 +1,7 @@
 package dev.booky.launchplates;
 // Created by booky10 in CloudCore (11:18 14.03.23)
 
-import dev.booky.cloudcore.config.ConfigLoader;
+import dev.booky.cloudcore.config.ConfigurateLoader;
 import dev.booky.launchplates.util.LaunchPlateConfig;
 import dev.booky.launchplates.util.LaunchPlateConfig.LaunchPlate;
 import net.kyori.adventure.text.Component;
@@ -52,12 +52,14 @@ public final class LaunchPlateManager {
     }
 
     public void reloadConfig() {
-        this.config = ConfigLoader.loadObject(this.configPath, LaunchPlateConfig.class);
+        this.config = ConfigurateLoader.yamlLoader().withAllDefaultSerializers().build()
+                .loadObject(this.configPath, LaunchPlateConfig.class);
         this.updatePlateMap();
     }
 
     public void saveConfig() {
-        ConfigLoader.saveObject(this.configPath, this.config);
+        ConfigurateLoader.yamlLoader().withAllDefaultSerializers().build()
+                .saveObject(this.configPath, this.config);
     }
 
     public synchronized void updateConfig(Consumer<LaunchPlateConfig> consumer) {

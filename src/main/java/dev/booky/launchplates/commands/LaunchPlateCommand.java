@@ -4,7 +4,6 @@ package dev.booky.launchplates.commands;
 import dev.booky.launchplates.LaunchPlateManager;
 import dev.booky.launchplates.util.LaunchPlateConfig.LaunchPlate;
 import dev.jorel.commandapi.CommandAPI;
-import dev.jorel.commandapi.CommandAPIBukkit;
 import dev.jorel.commandapi.CommandTree;
 import dev.jorel.commandapi.arguments.FloatArgument;
 import dev.jorel.commandapi.arguments.LiteralArgument;
@@ -32,6 +31,8 @@ import java.time.Duration;
 import java.util.Objects;
 import java.util.Set;
 
+import static dev.jorel.commandapi.CommandAPIPaper.failWithAdventureComponent;
+
 public final class LaunchPlateCommand {
 
     private final LaunchPlateManager manager;
@@ -41,13 +42,11 @@ public final class LaunchPlateCommand {
     }
 
     public static void create(LaunchPlateManager manager) {
-        LaunchPlateCommand command = new LaunchPlateCommand(manager);
-        command.unregister();
-        command.register();
+        new LaunchPlateCommand(manager).register();
     }
 
     private WrapperCommandSyntaxException fail(Component message) {
-        return CommandAPIBukkit.failWithAdventureComponent(this.manager.getPrefix()
+        return failWithAdventureComponent(this.manager.getPrefix()
                 .append(message.colorIfAbsent(NamedTextColor.RED)));
     }
 
@@ -133,7 +132,8 @@ public final class LaunchPlateCommand {
                             if (clicker == sender.getCaller() && clicker instanceof Player player) {
                                 blockLocation.setYaw(player.getLocation().getYaw());
                                 blockLocation.setPitch(player.getLocation().getPitch());
-                                player.teleport(blockLocation, TeleportFlag.Relative.YAW, TeleportFlag.Relative.PITCH);
+                                // TODO what the fuck did paper fuck up here, this is NOT a proper replacement
+                                player.teleport(blockLocation, TeleportFlag.Relative.VELOCITY_ROTATION);
                             }
                         }, opts -> opts.uses(ClickCallback.UNLIMITED_USES).lifetime(Duration.ofMinutes(10))));
             }

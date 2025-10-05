@@ -27,11 +27,11 @@ dependencies {
     implementation(libs.bstats.bukkit)
 
     compileOnlyApi(libs.cloudcore)
-    compileOnly(libs.commandapi.bukkit.core)
+    compileOnly(libs.commandapi.paper.core)
 
     // testserver dependency plugins
     plugin(variantOf(libs.cloudcore) { classifier("all") })
-    plugin(libs.commandapi.bukkit.plugin)
+    plugin(libs.commandapi.paper.plugin)
 }
 
 java {
@@ -48,14 +48,14 @@ publishing {
         from(components["java"])
     }
     repositories.maven("https://repo.cloudcraftmc.de/releases/") {
-        name = "horreo"
+        name = "minceraft"
         credentials(PasswordCredentials::class.java)
     }
 }
 
 bukkit {
     main = "$group.launchplates.LaunchPlatesMain"
-    apiVersion = "1.20"
+    apiVersion = "1.20.5"
     authors = listOf("booky10")
     depend = listOf("CloudCore", "CommandAPI")
     load = net.minecrell.pluginyml.bukkit.BukkitPluginDescription.PluginLoadOrder.POSTWORLD
@@ -63,7 +63,7 @@ bukkit {
 
 tasks {
     runServer {
-        minecraftVersion("1.21.1")
+        minecraftVersion("1.21.9")
 
         pluginJars.from(plugin.resolve())
         downloadPlugins {
